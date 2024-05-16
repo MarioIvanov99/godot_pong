@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://suyxycpfb3ms"]
+
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_s5wdn"]
+[ext_resource type="PackedScene" uid="uid://d3xvenrae1kae" path="res://Scenes/ball.tscn" id="1_ul30o"]
+[ext_resource type="Script" path="res://Scripts/PointTracker.gd" id="2_g0k11"]
+[ext_resource type="PackedScene" uid="uid://d0oh3ry2a7de6" path="res://Scenes/paddle.tscn" id="3_t5p02"]
+[ext_resource type="PackedScene" uid="uid://cu1b6p3s1ualg" path="res://Scenes/border.tscn" id="4_42xq6"]
+[ext_resource type="PackedScene" uid="uid://cpcq85mxq78uv" path="res://Scenes/paddle_2.tscn" id="5_p1r4r"]
+
+[node name="Level" type="Node"]
+script = ExtResource("1_s5wdn")
+
+[node name="PointTracker" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_g0k11")
+
+[node name="Ball" parent="." instance=ExtResource("1_ul30o")]
+position = Vector2(560, 296)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Paddle" parent="." instance=ExtResource("3_t5p02")]
+position = Vector2(2, -198)
+
+[node name="TopBorder" parent="." instance=ExtResource("4_42xq6")]
+position = Vector2(0, -1)
+
+[node name="BottomBorder" parent="." instance=ExtResource("4_42xq6")]
+position = Vector2(0, 668)
+
+[node name="Paddle2" parent="." instance=ExtResource("5_p1r4r")]
+position = Vector2(1128, -200)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -216.0
+offset_right = 216.0
+offset_bottom = 156.0
+grow_horizontal = 2
+
+[node name="P1_Score" type="Label" parent="CanvasLayer/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 216.0
+offset_bottom = 160.0
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="P2_Score" type="Label" parent="CanvasLayer/Panel"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -216.0
+offset_bottom = 160.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
